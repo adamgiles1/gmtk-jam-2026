@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://djgufm2wbmpth"]
 
-[ext_resource type="Script" uid="uid://ex8l521vk34l" path="res://GameManager.gd" id="1_u44n3"]
 [ext_resource type="Script" uid="uid://boqxcbvdvtsxk" path="res://camera_2d.gd" id="1_wbfu4"]
-[ext_resource type="PackedScene" uid="uid://wtafp064xcra" path="res://world/TileMap.tscn" id="2_xkndl"]
+
+[sub_resource type="TileSet" id="TileSet_srq52"]
+tile_size = Vector2i(32, 32)
 
 [node name="Game" type="Node2D" unique_id=1896399086]
-script = ExtResource("1_u44n3")
 
 [node name="Label" type="Label" parent="." unique_id=842224553]
 offset_left = 516.0
@@ -14,7 +14,8 @@ offset_right = 559.0
 offset_bottom = 323.0
 text = "game"
 
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1155360940]
+tile_set = SubResource("TileSet_srq52")
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1924152019]
 script = ExtResource("1_wbfu4")
-
-[node name="TileMap" parent="." unique_id=494859344 instance=ExtResource("2_xkndl")]
