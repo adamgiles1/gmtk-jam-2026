@@ -1,3 +1,4 @@
 extends Node
 
-var has_file_been_touched := false
+var has_file_been_touched := true
+var game_manager: GameManager
