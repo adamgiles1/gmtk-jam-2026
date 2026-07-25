@@ -40,9 +40,6 @@ static var _smug_head := preload("res://UserArt/Heads/SmugHead.png")
 static var _sad_head := preload("res://UserArt/Heads/SadHead.png")
 static var _upset_head := preload("res://UserArt/Heads/UpsetHead.png")
 
-func _process(_delta: float) -> void:
-	z_index = int(position.y * 100)
-	
 func play_idle() -> void:
 	_animator.play("Idle")
 	

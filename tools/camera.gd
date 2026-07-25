@@ -16,8 +16,8 @@ func _process(delta: float) -> void:
 		take_photo()
 
 func take_photo() -> void:
-	print("taking photo")
-	CameraService.take_photo(Vector2i(global_position + box.size / 2))
+	print("az taking photo at: ", get_viewport().get_mouse_position())
+	CameraService.take_photo(get_viewport().get_mouse_position())
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	queue_free()

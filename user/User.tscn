@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8vipeun23brc" path="res://user/user.gd" id="1_j0a4o"]
 [ext_resource type="Texture2D" uid="uid://w5kafc3luitw" path="res://icon.svg" id="2_i3sov"]
+[ext_resource type="PackedScene" uid="uid://c0d3207eniyqx" path="res://UserArt/UserArt.tscn" id="3_h7e16"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i3sov"]
 font_size = 10
@@ -17,6 +18,7 @@ outline_size = 2
 script = ExtResource("1_j0a4o")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1342340196]
+visible = false
 scale = Vector2(0.4, 0.5)
 texture = ExtResource("2_i3sov")
 
@@ -28,10 +30,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -57.0
-offset_right = 44.0
-offset_bottom = -34.0
+offset_left = -43.0
+offset_top = -84.0
+offset_right = 45.0
+offset_bottom = -61.0
 grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
@@ -40,9 +42,11 @@ label_settings = SubResource("LabelSettings_i3sov")
 horizontal_alignment = 1
 
 [node name="NameLabel" type="Label" parent="." unique_id=1253024228]
-offset_left = -36.0
-offset_top = -41.0
-offset_right = 36.0
-offset_bottom = -25.0
+offset_left = -35.0
+offset_top = -68.0
+offset_right = 37.0
+offset_bottom = -52.0
 text = "sweatLord"
 label_settings = SubResource("LabelSettings_srq52")
+
+[node name="UserArt" parent="." unique_id=994632350 instance=ExtResource("3_h7e16")]

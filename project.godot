@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Signals="*uid://dusc182c8g84c"
 Globals="*uid://bpqhnsghxsei4"
 CameraService="*uid://tbbpfrk3rkdm"
+NameGenerator="*uid://cea872jxi2tps"
 
 [display]
 

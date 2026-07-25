@@ -2,10 +2,11 @@ class_name User extends Node2D
 
 enum State {IDLE, MOVING_TO_TASK, TASK}
 
-static var position_tile_offset := Vector2i(16, -16)
-static var position_tile_offset_v2 := Vector2(16, -16)
+static var position_tile_offset := Vector2i(16, 16)
+static var position_tile_offset_v2 := Vector2(16, 16)
 
 @onready var local_chat: Label = %LocalChatLabel
+@onready var art: UserArt = $UserArt
 
 var movement_delay: float = .5
 
@@ -19,8 +20,13 @@ var task_time_left: float = 1.0
 var time_to_acquire_new_task: float = 1.0
 var task_multiplier := .5
 
-func init(spot: Vector2i) -> void:
+var id: int = 1
+
+func init(spot: Vector2i, _id: int, name: String) -> void:
 	move_to(spot, true)
+	art.randomize_appearance()
+	id = _id
+	$NameLabel.text = name
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,7 +34,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	art.z_index = int(position.y * 10 + id * 1)
 	if state == State.MOVING_TO_TASK:
+		art.play_walk(path[path_idx] - path[max(0, path_idx-1)])
 		time_to_next_move -= delta
 		if time_to_next_move <= 0:
 			move_to(path[path_idx])
@@ -78,10 +86,13 @@ func enter_idle() -> void:
 func enter_combat() -> void:
 	print("starting combat")
 	task_time_left = randf_range(10, 20) * task_multiplier
+	art.play_attack(Vector2.LEFT)
 
 func enter_fishing() -> void:
 	print("starting to fish")
 	task_time_left = randf_range(5, 15) * task_multiplier
+	art.play_idle()
+	art.equip_fishing_rod()
 
 func enter_explore() -> void:
 	print("exploring")

@@ -2,10 +2,6 @@ extends Node
 
 var photo_size := Vector2i(200, 150)
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_text_backspace"):
-		take_photo(get_viewport().get_visible_rect().size / 2)
-
 func take_photo(position: Vector2i) -> void:
 	print("taking photo at position: ", position)
 	await RenderingServer.frame_post_draw
@@ -16,7 +12,11 @@ func take_photo(position: Vector2i) -> void:
 	var img := Image.create(photo_size.x, photo_size.y, false, screen.get_format())
 	img.blit_rect(screen, Rect2i(crop_pos, photo_size), Vector2i.ZERO)
 	
-	save_image(img)
+	#save_image(img)
+	display_image(img)
+
+func display_image(img: Image) -> void:
+	Signals.photo_taken.emit(img)
 
 func save_image(img: Image) -> void:
 	var desktop = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP)

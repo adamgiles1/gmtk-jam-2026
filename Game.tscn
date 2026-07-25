@@ -4,17 +4,43 @@
 [ext_resource type="Script" uid="uid://boqxcbvdvtsxk" path="res://camera_2d.gd" id="1_wbfu4"]
 [ext_resource type="PackedScene" uid="uid://wtafp064xcra" path="res://world/TileMap.tscn" id="2_xkndl"]
 
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_srq52"]
+
 [node name="Game" type="Node2D" unique_id=1896399086]
 script = ExtResource("1_u44n3")
-
-[node name="Label" type="Label" parent="." unique_id=842224553]
-offset_left = 516.0
-offset_top = 300.0
-offset_right = 559.0
-offset_bottom = 323.0
-text = "game"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1924152019]
 script = ExtResource("1_wbfu4")
 
 [node name="TileMap" parent="." unique_id=494859344 instance=ExtResource("2_xkndl")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2137768020]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=486891903]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CameraButton" type="Button" parent="CanvasLayer/UI" unique_id=545038300]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Camera"
+
+[node name="PhotoRect" type="TextureRect" parent="CanvasLayer/UI" unique_id=1709193568]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("NoiseTexture2D_srq52")

@@ -21,6 +21,8 @@ var active_users: int = 0 :
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	%CameraButton.pressed.connect(func(): add_child(preload("res://tools/camera.tscn").instantiate()))
+	Signals.photo_taken.connect(display_photo)
 	init_pathfinding()
 	spawn_player()
 	Globals.game_manager = self
@@ -31,14 +33,11 @@ func _process(delta: float) -> void:
 	if time_till_next_player <= 0:
 		spawn_player()
 		time_till_next_player = randf_range(.5, .5)
-	
-	if Input.is_action_just_pressed("ui_end"):
-		add_child(preload("res://tools/camera.tscn").instantiate())
 
 func spawn_player() -> void:
 	var user: User = user_scn.instantiate()
 	add_child(user)
-	user.init(player_spawn_spot)
+	user.init(player_spawn_spot, active_users, NameGenerator.get_random_name())
 	
 	active_users += 1
 
@@ -58,9 +57,7 @@ func init_pathfinding() -> void:
 			pathfind.set_point_solid(pos, is_solid)
 
 func calculate_path(start: Vector2i, end: Vector2i) -> PackedVector2Array:
-	print("calculating path: ", start, "|", end)
 	var path: PackedVector2Array = pathfind.get_point_path(start, end)
-	print("len: ", len(path))
 	return path
 
 func give_user_task(user: User) -> void:
@@ -99,3 +96,7 @@ func get_random_pathable_spot(start: Vector2i) -> Vector2i:
 			return spot
 	# if we fail to find a spot 10 times, give up and return the same spot
 	return start
+
+func display_photo(img: Image) -> void:
+	var texture := ImageTexture.create_from_image(img)
+	%PhotoRect.texture = texture
