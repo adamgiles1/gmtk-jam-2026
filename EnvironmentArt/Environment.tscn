@@ -34,7 +34,7 @@ tile_set = ExtResource("1_6oy1f")
 
 [node name="Log" type="Sprite2D" parent="." unique_id=927339246]
 texture_filter = 1
-position = Vector2(2752, 1408)
+position = Vector2(-448, 1632)
 texture = ExtResource("2_sceas")
 
 [node name="User" parent="." unique_id=1152976135 instance=ExtResource("3_cxtse")]
