@@ -33,4 +33,19 @@ offset_bottom = 40.0
 [node name="Environment" parent="." unique_id=1244751025 instance=ExtResource("4_t88pq")]
 
 [node name="TrashCan" parent="." unique_id=2035190682 instance=ExtResource("5_t88pq")]
-position = Vector2(-1134, -1010)
+position = Vector2(-670, -947)
+
+[node name="TrashCan2" parent="." unique_id=213879408 instance=ExtResource("5_t88pq")]
+position = Vector2(-256, -949)
+
+[node name="TrashCan3" parent="." unique_id=2091548230 instance=ExtResource("5_t88pq")]
+position = Vector2(2, -1268)
+
+[node name="TrashCan4" parent="." unique_id=213531966 instance=ExtResource("5_t88pq")]
+position = Vector2(-1197, -272)
+
+[node name="TrashCan5" parent="." unique_id=1837491034 instance=ExtResource("5_t88pq")]
+position = Vector2(-1730, -272)
+
+[node name="TrashCan6" parent="." unique_id=439364530 instance=ExtResource("5_t88pq")]
+position = Vector2(-2017, -275)

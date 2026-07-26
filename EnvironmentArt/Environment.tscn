@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://c54td4o1yqbp0"]
 
 [ext_resource type="TileSet" uid="uid://c2r60rd4wmtr0" path="res://EnvironmentArt/TileSets/new_tile_set.tres" id="1_6oy1f"]
+[ext_resource type="Script" uid="uid://d3vcn2auoh5gb" path="res://EnvironmentArt/environment.gd" id="1_7iegq"]
 [ext_resource type="Texture2D" uid="uid://ck6qvu7tjxtyq" path="res://EnvironmentArt/Log.png" id="2_sceas"]
 [ext_resource type="Texture2D" uid="uid://w5kafc3luitw" path="res://icon.svg" id="2_vdiap"]
 [ext_resource type="PackedScene" uid="uid://b755r752l85sb" path="res://user/User.tscn" id="3_cxtse"]
@@ -50,6 +51,7 @@ custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_c8wb1")
 
 [node name="Environment" type="Node2D" unique_id=1244751025]
+script = ExtResource("1_7iegq")
 
 [node name="TileMap" type="Node2D" parent="." unique_id=878248302]
 

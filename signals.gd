@@ -11,9 +11,14 @@ signal smithing_noticed
 signal trashcans_noticed
 signal ugly_hat
 signal streamer_photographed
-
+signal rat_sword
 
 signal invincible_enemy_found
 signal massacre_found
 
-signal rat_sword
+
+signal delete_trashcans
+signal delete_raid
+signal start_massacre
+
+signal all_objectives_found
