@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://b755r752l85sb"]
 
 [ext_resource type="Script" uid="uid://b8vipeun23brc" path="res://user/user.gd" id="1_j0a4o"]
-[ext_resource type="Texture2D" uid="uid://w5kafc3luitw" path="res://icon.svg" id="2_i3sov"]
 [ext_resource type="PackedScene" uid="uid://c0d3207eniyqx" path="res://UserArt/UserArt.tscn" id="3_h7e16"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i3sov"]
@@ -14,17 +13,16 @@ font_size = 8
 font_color = Color(0, 0, 0, 1)
 outline_size = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srq52"]
+size = Vector2(64, 64)
+
 [node name="User" type="Node2D" unique_id=1152976135]
 script = ExtResource("1_j0a4o")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1342340196]
-visible = false
-scale = Vector2(0.4, 0.5)
-texture = ExtResource("2_i3sov")
-
 [node name="LocalChatLabel" type="Label" parent="." unique_id=2133484749]
 unique_name_in_owner = true
-z_index = 2
+z_index = 4096
+z_as_relative = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -50,3 +48,14 @@ text = "sweatLord"
 label_settings = SubResource("LabelSettings_srq52")
 
 [node name="UserArt" parent="." unique_id=994632350 instance=ExtResource("3_h7e16")]
+
+[node name="PhotoArea" type="Area2D" parent="." unique_id=1647903047]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhotoArea" unique_id=462445861]
+position = Vector2(-2, -29)
+shape = SubResource("RectangleShape2D_srq52")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=819632512]

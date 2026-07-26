@@ -2,17 +2,15 @@
 
 [ext_resource type="Script" uid="uid://ex8l521vk34l" path="res://GameManager.gd" id="1_u44n3"]
 [ext_resource type="Script" uid="uid://boqxcbvdvtsxk" path="res://camera_2d.gd" id="1_wbfu4"]
-[ext_resource type="PackedScene" uid="uid://wtafp064xcra" path="res://world/TileMap.tscn" id="2_xkndl"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_srq52"]
+[ext_resource type="PackedScene" uid="uid://c4fwl0y2sha3d" path="res://tools/phone.tscn" id="4_sb48q"]
+[ext_resource type="PackedScene" uid="uid://c54td4o1yqbp0" path="res://EnvironmentArt/Environment.tscn" id="4_t88pq"]
+[ext_resource type="PackedScene" uid="uid://cd2isk102xc7p" path="res://world/TrashCan.tscn" id="5_t88pq"]
 
 [node name="Game" type="Node2D" unique_id=1896399086]
 script = ExtResource("1_u44n3")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1924152019]
 script = ExtResource("1_wbfu4")
-
-[node name="TileMap" parent="." unique_id=494859344 instance=ExtResource("2_xkndl")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2137768020]
 
@@ -24,23 +22,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CameraButton" type="Button" parent="CanvasLayer/UI" unique_id=545038300]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -104.0
-offset_top = -24.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Camera"
-
 [node name="PhotoRect" type="TextureRect" parent="CanvasLayer/UI" unique_id=1709193568]
 unique_name_in_owner = true
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
-texture = SubResource("NoiseTexture2D_srq52")
+
+[node name="Phone" parent="." unique_id=962251359 instance=ExtResource("4_sb48q")]
+
+[node name="Environment" parent="." unique_id=1244751025 instance=ExtResource("4_t88pq")]
+
+[node name="TrashCan" parent="." unique_id=2035190682 instance=ExtResource("5_t88pq")]
+position = Vector2(-1134, -1010)

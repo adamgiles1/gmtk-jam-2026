@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://0dopq4cr5fey"]
+
+[ext_resource type="Script" uid="uid://cblfcdbsqlu3d" path="res://tools/text_message.gd" id="1_ouipb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srq52"]
+bg_color = Color(0, 0.71755975, 0.3759975, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1.7447397e-06, 0.41570398, 0.2075648, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_4wlty"]
+font_size = 13
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="TextMessage" type="PanelContainer" unique_id=407820325]
+custom_minimum_size = Vector2(270, 0)
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 311.0
+offset_bottom = 68.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_srq52")
+script = ExtResource("1_ouipb")
+
+[node name="Label" type="Label" parent="." unique_id=1808215465]
+custom_maximum_size = Vector2(270, -1)
+layout_mode = 2
+text = "testing this is some text"
+label_settings = SubResource("LabelSettings_4wlty")
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=622135321]
+layout_mode = 2
