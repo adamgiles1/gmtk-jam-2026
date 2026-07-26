@@ -1,13 +1,14 @@
 class_name User extends Node2D
 
 enum State {IDLE, MOVING_TO_TASK, TASK}
-enum PState {NONE, FISHING, DOGLOG, RAID, SMITHING, HAT}
+enum PState {NONE, FISHING, DOGLOG, RAID, SMITHING, HAT, SWORD, MASSACRE, INVINCIBLE}
 
 static var position_tile_offset := Vector2i(16, 16)
 static var position_tile_offset_v2 := Vector2(16, 16)
 
 @onready var local_chat: Label = %LocalChatLabel
 @onready var art: UserArt = $UserArt
+@onready var massacre_area: Area2D = $MassacreArea
 
 var movement_delay: float = .5 #* .1
 
@@ -26,6 +27,10 @@ var force_next_task: Task.Type = Task.Type.IDLE
 var id: int = 1
 var is_streamer := false
 var photograph_state: PState = PState.NONE
+
+var has_sword := false
+
+var massacre_cd: float = 0.0
 
 func init(spot: Vector2i, _id: int, _name: String, _is_streamer := false) -> void:
 	$PhotoArea.monitorable = false
@@ -70,6 +75,14 @@ func _process(delta: float) -> void:
 		$PhotoArea.monitorable = true
 	else:
 		$PhotoArea.monitorable = false
+	
+	if task == Task.Type.MASSACRE:
+		massacre_cd -= delta
+		if massacre_cd <= 0 && massacre_area.has_overlapping_areas():
+			massacre_cd = 2.0
+			var user: User = massacre_area.get_overlapping_areas()[0].owner
+			user.attack()
+			local_chat_message(["DIE", "HIYA", "KILL", "I love this bug"].pick_random())
 
 func move_to(pos: Vector2i, instant := false) -> void:
 	if len(path) > 0:
@@ -85,6 +98,8 @@ func finish_moving() -> void:
 	match task:
 		Task.Type.RAT:
 			enter_combat()
+		Task.Type.CRAB:
+			enter_crab_combat()
 		Task.Type.FISHING:
 			enter_fishing()
 		Task.Type.EXPLORE:
@@ -103,6 +118,10 @@ func finish_moving() -> void:
 			enter_mining()
 		Task.Type.SMITHING:
 			enter_smithing()
+		Task.Type.BE_STREAMER:
+			enter_streamer()
+		Task.Type.MASSACRE:
+			enter_massacre()
 
 func assign_new_task(_task: Task.Type, _path: PackedVector2Array) -> void:
 	set_path(_path)
@@ -116,7 +135,24 @@ func enter_idle() -> void:
 
 func enter_combat() -> void:
 	task_time_left = randf_range(10, 20) * task_multiplier
+	art.play_attack(Vector2.LEFT if randf() < .5 else Vector2.RIGHT)
+	if !Globals.game_state.rat_sword_fixed:
+		if has_sword:
+			set_photograph_state_for_time(PState.SWORD, task_time_left)
+		else:
+			await get_tree().create_timer(5.0).timeout
+			art.apply_rare_sword()
+			local_chat_message(["Why did the rat drop this?", "Woah, cool sword", "No way, super rare sword"].pick_random())
+			has_sword = true
+			set_photograph_state_for_time(PState.SWORD, task_time_left)
+
+func enter_crab_combat() -> void:
+	task_time_left = randf_range(10, 20) * task_multiplier
 	art.play_attack(Vector2.LEFT)
+	if !Globals.game_state.desert_enemy_fixed:
+		set_photograph_state_for_time(PState.INVINCIBLE, task_time_left)
+		await get_tree().create_timer(5.0).timeout
+		local_chat_message(["Why won't they die?", "Is the game bugged? I can't kill them", "No damage?"].pick_random())
 
 func enter_fishing() -> void:
 	task_time_left = randf_range(5, 15) * task_multiplier
@@ -166,12 +202,13 @@ func enter_mining() -> void:
 	art.play_interact(Vector2.LEFT)
 
 func enter_smithing() -> void:
-	if randf() < .75:
+	if !Globals.game_state.smithing_fixed && randf() < .75:
 		force_next_task = Task.Type.MINING
 	task_time_left = randf_range(5, 10)
 	art.play_interact(Vector2.LEFT)
 	if !Globals.game_state.smithing_fixed:
 		set_photograph_state_for_time(PState.SMITHING, task_time_left)
+		local_chat_message(["This is very fast", "I don't think I'm supposed to do this", "Is the furnace meant to be across the river?"].pick_random())
 
 func enter_turn_in_quest() -> void:
 	if !Globals.game_state.quest_reward_fixed:
@@ -179,6 +216,36 @@ func enter_turn_in_quest() -> void:
 		art.apply_ugly_hat()
 		set_photograph_state_for_time(PState.HAT, 9999)
 	var msg = ["I finished the quest", "Here's your lost ball", "You better give me something good"].pick_random()
+	local_chat_message(msg)
+
+func enter_massacre() -> void:
+	massacre_area.monitoring = true
+	$PlayerArea.monitorable = false
+	art.apply_pvp_hat()
+	task_time_left = 999999999999
+	art.play_attack(Vector2.LEFT if randf() < .5 else Vector2.RIGHT)
+	Signals.start_massacre.emit()
+	Signals.massacre_found.connect(exit_massacre)
+	set_photograph_state_for_time(PState.MASSACRE, task_time_left)
+
+func exit_massacre() -> void:
+	await get_tree().create_timer(5.0).timeout
+	art.apply_ugly_hat()
+	task_time_left = 0
+	photograph_state = PState.NONE
+
+func attack() -> void:
+	var msg = ["Ouch, how did they attack me?", "A player attacked me?", "How are you doing that?"].pick_random()
+	if is_streamer:
+		msg = ["Chat, did I just get attacked by a player?", "Chat help me, I'm being attacked", "What do I do chat? I can't attack back"].pick_random()
+	local_chat_message(msg)
+
+func enter_streamer() -> void:
+	task_time_left = randf_range(2, 4)
+	var msg = ["Chat, what do you think about this game?", "I'm a little lost chat, which way?", "This game is too  hard chat", "Can someone in chat donate me a better weapon?", "Thanks %s for the donation" % NameGenerator.get_random_name()].pick_random()
+	if randf() < .33:
+		msg = "Thanks %s for the donation" % NameGenerator.get_random_name()
+		
 	local_chat_message(msg)
 
 func local_chat_message(msg: String) -> void:
@@ -219,6 +286,15 @@ func photographed() -> void:
 	elif photograph_state == PState.HAT:
 		print("hat photographed")
 		Signals.ugly_hat.emit()
+	elif photograph_state == PState.SWORD:
+		print("sword photographed")
+		Signals.rat_sword.emit()
+	elif photograph_state == PState.MASSACRE:
+		print("Massacre photographed")
+		Signals.massacre_found.emit()
+	elif photograph_state == PState.INVINCIBLE:
+		print("crab photographed")
+		Signals.invincible_enemy_found.emit()
 	else:
 		print("was photographed: ", self.name)
 

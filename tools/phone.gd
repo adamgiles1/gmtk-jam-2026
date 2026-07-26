@@ -14,9 +14,17 @@ func _ready() -> void:
 	add_message("To take a picture, hit spacebar, move the mouse to where you want to take a picture, and left click when you're ready")
 	Signals.photo_taken.connect(func(photo_taken): last_photo = photo_taken, CONNECT_DEFERRED)
 	Signals.fishing_attempt_found.connect(handle_fishing, CONNECT_DEFERRED)
-	
+	Signals.trashcans_noticed.connect(handle_trashcans_noticed, CONNECT_DEFERRED)
+	Signals.raid_failure.connect(handle_raid_failure, CONNECT_DEFERRED)
 	#todo
+	# Signals.dog_log_found.connect(handle_dog_log_found, CONNECT_DEFERRED)
 	# 
+	# Signals.smithing_noticed.connect(handle_smithing_noticed, CONNECT_DEFERRED)
+	# Signals.ugly_hat.connect(handle_ugly_hat, CONNECT_DEFERRED)
+	# Signals.streamer_photographed.connect(handle_streamer_photographed, CONNECT_DEFERRED)
+	# Signals.rat_sword.connect(handle_rat_sword, CONNECT_DEFERRED)
+	# Signals.invincible_enemy_found.connect(handle_invincible_enemy_found, CONNECT_DEFERRED)
+	# Signals.massacre_found.connect(handle_massacre_found, CONNECT_DEFERRED)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_home"):
@@ -26,6 +34,20 @@ func handle_fishing() -> void:
 	await get_tree().create_timer(.1).timeout
 	add_image(last_photo)
 	add_message("People are complaining about fishing not working? That's because it's not a feature of the game. Fine, we can add it.")
+
+func handle_trashcans_noticed() -> void:
+	await get_tree().create_timer(.1).timeout
+	add_image(last_photo)
+	add_message("The trashcans aren't realistic for the time period? Who even put those in, was it the intern? I deleted them all.")
+	await get_tree().create_timer(len(upcoming_texts) * 4.0).timeout
+	Signals.delete_trashcans.emit()
+
+func handle_raid_failure() -> void:
+	await get_tree().create_timer(.1).timeout
+	add_image(last_photo)
+	add_message("Players can't enter the raid? Wait, why is that there? I told Steve that the raid ENTRANCE was ready, not the actual raid. Let me remove that before other players notice...")
+	await get_tree().create_timer(len(upcoming_texts) * 4.0).timeout
+	Signals.delete_raid.emit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

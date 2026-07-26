@@ -9,6 +9,37 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmeb3"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxyes"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_cvbq8"]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_gmeb3")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_gmeb3")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_uxyes")
+
 [node name="Phone" type="CanvasLayer" unique_id=199274668]
 script = ExtResource("1_4wlty")
 
@@ -30,10 +61,13 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xe0u3")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer" unique_id=422629785]
 layout_mode = 2
+theme = SubResource("Theme_cvbq8")
 horizontal_scroll_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ScrollContainer" unique_id=377782041]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 5)
 
 [node name="IncomingMessageLabel" type="Label" parent="." unique_id=52058458]
 offset_left = 501.0

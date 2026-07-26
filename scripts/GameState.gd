@@ -23,32 +23,65 @@ func init() -> void:
 	Signals.streamer_photographed.connect(handle_streamer)
 	Signals.ugly_hat.connect(handle_hat)
 
+func calculate_state():
+	var completed: int = 0
+	if fishing_enabled: completed += 1
+	if streamer_found: completed += 1
+	if massacre_solved: completed += 1
+	if raid_entrance_solved: completed += 1
+	if dog_log_reported: completed += 1
+	if metal_trashcan_removed: completed += 1
+	if smithing_fixed: completed += 1
+	if rat_sword_fixed: completed += 1
+	if desert_enemy_fixed: completed += 1
+	if quest_reward_fixed: completed += 1
+	print("completed objects: ", completed, "/10")
+	
+	if completed > 1 && !Globals.game_manager.grass_available:
+		Signals.game_patched.emit(Signals.GamePatch.GRASS_AREA)
+	
+	if completed > 4 && !Globals.game_manager.desert_available:
+		Signals.game_patched.emit(Signals.GamePatch.DESERT_AREA)
+	
+	if completed >= 10:
+		Signals.all_objectives_found.emit()
+
 func handle_streamer():
 	streamer_found = true
+	calculate_state()
 
 func handle_hat():
 	quest_reward_fixed = true
+	calculate_state()
 
 func handle_massacre():
 	massacre_solved = true
+	calculate_state()
 
 func invincible_enemy():
 	desert_enemy_fixed = true
+	calculate_state()
 
 func enable_fishing():
 	fishing_enabled = true
+	calculate_state()
 
 func remove_raid():
 	raid_entrance_solved = true
+	calculate_state()
 
 func patch_smithing():
 	smithing_fixed = true
+	calculate_state()
 
 func dog_log():
 	dog_log_reported = true
+	calculate_state()
 
 func trashcans():
 	metal_trashcan_removed = true
+	calculate_state()
 
 func sword_fixed():
 	rat_sword_fixed = true
+	calculate_state()

@@ -22,11 +22,6 @@ func _process(delta: float) -> void:
 	position += movement * CAMERA_SPEED * delta
 	position.x = clamp(position.x, camera_min_x, camera_max_x)
 	position.y = clamp(position.y, camera_min_y, camera_max_y)
-	
-	if Input.is_action_just_pressed("ui_page_down"):
-		Signals.game_patched.emit(Signals.GamePatch.GRASS_AREA)
-	if Input.is_action_just_pressed("ui_page_up"):
-		Signals.game_patched.emit(Signals.GamePatch.DESERT_AREA)
 
 func calculate_cursor_edge_movement() -> Vector2:
 	var mouse_pos := get_viewport().get_mouse_position()
