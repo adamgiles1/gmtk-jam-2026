@@ -17,7 +17,7 @@ func _ready() -> void:
 	add_message("To start off, I saw the intern added a new hat as a reward when someone completes a quest. Take a picture.")
 	add_message("I also saw the famous streamer Vessel_Radio was going to play our game. They are huge, please get me a picture.")
 	add_message("Press tab to open/close the phone, and get started!")
-	Signals.photo_taken.connect(func(photo_taken): last_photo = photo_taken, CONNECT_DEFERRED)
+	Signals.photo_taken.connect(take_photo, CONNECT_DEFERRED)
 	Signals.fishing_attempt_found.connect(handle_fishing, CONNECT_DEFERRED)
 	Signals.trashcans_noticed.connect(handle_trashcans_noticed, CONNECT_DEFERRED)
 	Signals.raid_failure.connect(handle_raid_failure, CONNECT_DEFERRED)
@@ -33,6 +33,8 @@ func _ready() -> void:
 	Signals.game_patched.connect(handle_game_patch)
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_home"):
+		add_message("testing")	
 	hint_cd -= delta
 	if Input.is_action_just_pressed("get_hint") && hint_cd <= 0:
 		add_message(Globals.game_state.get_hint())
@@ -48,6 +50,10 @@ func handle_game_patch(patch: Signals.GamePatch) -> void:
 		await get_tree().create_timer(5.0).timeout
 		add_message("We've added the desert to the north. Maybe we're going to be ok!")
 		add_message("Don't forget to press H if you need information")
+		
+func take_photo(photo_taken) -> void:
+	$CaptureAudio.play()
+	last_photo = photo_taken
 
 func handle_fishing() -> void:
 	await get_tree().create_timer(.1).timeout
@@ -134,6 +140,7 @@ func add_image(img: Image) -> void:
 	upcoming_texts.append(text_msg)
 
 func add_message(msg: String) -> void:
+	$NotifAudio.play()
 	var text_msg = preload("res://tools/TextMessage.tscn").instantiate()
 	messages.add_child(text_msg)
 	text_msg.visible = false

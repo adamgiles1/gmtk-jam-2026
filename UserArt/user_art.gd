@@ -40,6 +40,44 @@ static var _smug_head := preload("res://UserArt/Heads/SmugHead.png")
 static var _sad_head := preload("res://UserArt/Heads/SadHead.png")
 static var _upset_head := preload("res://UserArt/Heads/UpsetHead.png")
 
+static var _furnace_sound := preload("res://Audio/Furnace.wav")
+static var _swing_sound := preload("res://Audio/Swing.wav")
+static var _hit_sound := preload("res://Audio/Hit.wav")
+static var _immune_sound := preload("res://Audio/Immune.wav")
+static var _player_hit_sound := preload("res://Audio/PlayerHit.wav")
+static var _mine_sound := preload("res://Audio/Mine.wav")
+
+@onready var _furnace_audio = $FurnaceAudio
+@onready var _swing_audio = $SwingAudio
+@onready var _hit_audio = $HitAudio
+
+func add_furnace_sound() -> void:
+	_furnace_audio.stream = _furnace_sound
+	
+func remove_furnace_sound() -> void:
+	_furnace_audio.stream = null
+	
+func add_swing_sound() -> void:
+	_swing_audio.stream = _swing_sound
+	
+func remove_swing_sound() -> void:
+	_swing_audio.stream = null
+	
+func remove_hit_sound() -> void:
+	_hit_audio.stream = null
+	
+func add_hit_sound() -> void:
+	_hit_audio.stream = _hit_sound
+	
+func add_player_hit_sound() -> void:
+	_hit_audio.stream = _player_hit_sound
+	
+func add_immune_sound() -> void:
+	_hit_audio.stream = _immune_sound
+	
+func add_mine_sound() -> void:
+	_hit_audio.stream = _mine_sound
+
 func play_idle() -> void:
 	_animator.play("Idle")
 	
