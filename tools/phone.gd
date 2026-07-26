@@ -12,8 +12,10 @@ var hint_cd: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_message("Hi, thanks for agreeing to be a community manager for the team")
-	add_message("To take a picture, hit spacebar, move the mouse to where you want to take a picture, and left click when you're ready")
+	add_message("Hi, thanks for agreeing to step in as community manager")
+	add_message("I just heard from the CEO that they are planning to pull funding for our MMO at the end of the day if we don't increase player retention")
+	add_message("WE HAVE A COUNTDOWN OR ELSE WE ALL LOSE OUR JOBS, AND WORLD OF RUNIC MYSTERY WILL BE SHUT DOWN FOREVER")
+	add_message("To take a picture of something, hit spacebar, move the mouse to where you want to take a picture, and left click when you're ready")
 	add_message("To start off, I saw the intern added a new hat as a reward when someone completes a quest. Take a picture.")
 	add_message("I also saw the famous streamer Vessel_Radio was going to play our game. They are huge, please get me a picture.")
 	add_message("Press tab to open/close the phone, and get started!")
@@ -31,6 +33,7 @@ func _ready() -> void:
 	Signals.massacre_found.connect(handle_massacre_found, CONNECT_DEFERRED)
 	
 	Signals.game_patched.connect(handle_game_patch)
+	Signals.all_objectives_found.connect(handle_game_won)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_home"):
@@ -54,6 +57,11 @@ func handle_game_patch(patch: Signals.GamePatch) -> void:
 func take_photo(photo_taken) -> void:
 	$CaptureAudio.play()
 	last_photo = photo_taken
+
+func handle_game_won() -> void:
+	visible = true
+	add_message("You did it! I just heard we're not going to be cancelled! Steve the CEO just told me that we have funding for another week")
+	add_message("The one thing the players wanted was a classic version of the game, back in the good old days. This morning.")
 
 func handle_fishing() -> void:
 	await get_tree().create_timer(.1).timeout

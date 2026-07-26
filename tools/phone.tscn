@@ -46,47 +46,6 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_uxyes")
 [node name="Phone" type="CanvasLayer" unique_id=199274668]
 script = ExtResource("1_4wlty")
 
-[node name="PhoneImage" type="TextureRect" parent="." unique_id=563471289]
-offset_left = 273.0
-offset_top = -37.0
-offset_right = 1083.0
-offset_bottom = 999.45154
-texture = ExtResource("2_uxyes")
-expand_mode = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1551098587]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -300.0
-offset_right = 175.0
-offset_bottom = 300.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_xe0u3")
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1970217337]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/margin_bottom = 40
-
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer" unique_id=422629785]
-unique_name_in_owner = true
-layout_mode = 2
-theme = SubResource("Theme_cvbq8")
-horizontal_scroll_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/ScrollContainer" unique_id=377782041]
-unique_name_in_owner = true
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(5, 5)
-
 [node name="IncomingMessageLabel" type="Label" parent="." unique_id=52058458]
 unique_name_in_owner = true
 offset_left = 501.0
@@ -100,3 +59,52 @@ stream = ExtResource("3_wdaxh")
 
 [node name="CaptureAudio" type="AudioStreamPlayer2D" parent="." unique_id=1028667374]
 stream = ExtResource("4_cvbq8")
+
+[node name="Control" type="Control" parent="." unique_id=1715593751]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PhoneImage" type="TextureRect" parent="Control" unique_id=563471289]
+layout_mode = 0
+offset_left = 273.0
+offset_top = -37.0
+offset_right = 1083.0
+offset_bottom = 999.45154
+texture = ExtResource("2_uxyes")
+expand_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1551098587]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 470.0
+offset_top = 160.0
+offset_right = 795.0
+offset_bottom = 760.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_xe0u3")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" unique_id=1970217337]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_bottom = 40
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer/MarginContainer" unique_id=422629785]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_cvbq8")
+horizontal_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/ScrollContainer" unique_id=377782041]
+unique_name_in_owner = true
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 5)

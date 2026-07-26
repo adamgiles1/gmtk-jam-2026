@@ -9,6 +9,7 @@ size = Vector2(256, 192)
 script = ExtResource("1_54vk1")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1122171340]
+z_index = 4095
 offset_right = 256.0
 offset_bottom = 192.0
 color = Color(0, 0, 0, 0.22745098)

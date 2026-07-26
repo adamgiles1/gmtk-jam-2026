@@ -46,6 +46,7 @@ label_settings = SubResource("LabelSettings_i3sov")
 horizontal_alignment = 1
 
 [node name="NameLabel" type="Label" parent="." unique_id=1253024228]
+z_index = 4095
 offset_left = -35.0
 offset_top = -68.0
 offset_right = 37.0
@@ -54,6 +55,7 @@ text = "sweatLord"
 label_settings = SubResource("LabelSettings_srq52")
 
 [node name="UserArt" parent="." unique_id=994632350 instance=ExtResource("3_h7e16")]
+z_index = 0
 
 [node name="PhotoArea" type="Area2D" parent="." unique_id=1647903047]
 collision_layer = 2

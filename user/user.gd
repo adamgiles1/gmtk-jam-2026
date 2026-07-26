@@ -10,7 +10,7 @@ static var position_tile_offset_v2 := Vector2(16, 16)
 @onready var art: UserArt = $UserArt
 @onready var massacre_area: Area2D = $MassacreArea
 
-var movement_delay: float = .5 * .1
+var movement_delay: float = .5 #* .1
 
 var path: PackedVector2Array = []
 var path_idx: int = 0
