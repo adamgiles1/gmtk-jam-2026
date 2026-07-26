@@ -135,6 +135,7 @@ func enter_idle() -> void:
 
 func enter_combat() -> void:
 	task_time_left = randf_range(10, 20) * task_multiplier
+	art.add_hit_sound()
 	art.play_attack(Vector2.LEFT if randf() < .5 else Vector2.RIGHT)
 	if !Globals.game_state.rat_sword_fixed:
 		if has_sword:
@@ -149,6 +150,7 @@ func enter_combat() -> void:
 func enter_crab_combat() -> void:
 	task_time_left = randf_range(10, 20) * task_multiplier
 	art.play_attack(Vector2.LEFT)
+	art.add_immune_sound()
 	if !Globals.game_state.desert_enemy_fixed:
 		set_photograph_state_for_time(PState.INVINCIBLE, task_time_left)
 		await get_tree().create_timer(5.0).timeout
@@ -203,12 +205,14 @@ func enter_quest_one() -> void:
 func enter_mining() -> void:
 	force_next_task = Task.Type.SMITHING
 	task_time_left = randf_range(5, 10)
+	art.remove_furnace_sound()
 	art.play_interact(Vector2.LEFT)
 
 func enter_smithing() -> void:
 	if !Globals.game_state.smithing_fixed && randf() < .75:
 		force_next_task = Task.Type.MINING
 	task_time_left = randf_range(5, 10)
+	art.add_furnace_sound()
 	art.play_interact(Vector2.LEFT)
 	if !Globals.game_state.smithing_fixed:
 		set_photograph_state_for_time(PState.SMITHING, task_time_left)
@@ -227,6 +231,7 @@ func enter_massacre() -> void:
 	$PlayerArea.monitorable = false
 	art.apply_pvp_hat()
 	task_time_left = 999999999999
+	art.add_player_hit_sound()
 	art.play_attack(Vector2.LEFT if randf() < .5 else Vector2.RIGHT)
 	Signals.start_massacre.emit()
 	Signals.massacre_found.connect(exit_massacre)
@@ -234,6 +239,7 @@ func enter_massacre() -> void:
 
 func exit_massacre() -> void:
 	await get_tree().create_timer(5.0).timeout
+	art.add_hit_sound()
 	art.apply_ugly_hat()
 	task_time_left = 0
 	photograph_state = PState.NONE

@@ -3,8 +3,8 @@
 [ext_resource type="TileSet" uid="uid://c2r60rd4wmtr0" path="res://EnvironmentArt/TileSets/new_tile_set.tres" id="1_6oy1f"]
 [ext_resource type="Script" uid="uid://d3vcn2auoh5gb" path="res://EnvironmentArt/environment.gd" id="1_7iegq"]
 [ext_resource type="Texture2D" uid="uid://ck6qvu7tjxtyq" path="res://EnvironmentArt/Log.png" id="2_sceas"]
+[ext_resource type="AudioStream" uid="uid://cdaumoho50efx" path="res://Audio/gmtk2026.ogg" id="2_t63ii"]
 [ext_resource type="Texture2D" uid="uid://w5kafc3luitw" path="res://icon.svg" id="2_vdiap"]
-[ext_resource type="PackedScene" uid="uid://b755r752l85sb" path="res://user/User.tscn" id="3_cxtse"]
 [ext_resource type="Texture2D" uid="uid://b8d6lv0u6i004" path="res://EnvironmentArt/player_spawn.png" id="4_s04qh"]
 [ext_resource type="Texture2D" uid="uid://b1jgg2sijerxm" path="res://EnvironmentArt/furnace.png" id="5_vdiap"]
 [ext_resource type="Texture2D" uid="uid://csknw0buaqnlb" path="res://EnvironmentArt/ore_vein.png" id="6_bq6xv"]
@@ -53,6 +53,11 @@ sources/1 = SubResource("TileSetAtlasSource_c8wb1")
 [node name="Environment" type="Node2D" unique_id=1244751025]
 script = ExtResource("1_7iegq")
 
+[node name="Gmtk2026" type="AudioStreamPlayer" parent="." unique_id=1721117226]
+stream = ExtResource("2_t63ii")
+volume_db = -25.0
+autoplay = true
+
 [node name="TileMap" type="Node2D" parent="." unique_id=878248302]
 
 [node name="Earth" type="TileMapLayer" parent="TileMap" unique_id=1495949725]
@@ -84,9 +89,6 @@ tile_set = SubResource("TileSet_7bi17")
 texture_filter = 1
 position = Vector2(-448, 1632)
 texture = ExtResource("2_sceas")
-
-[node name="User" parent="." unique_id=1152976135 instance=ExtResource("3_cxtse")]
-position = Vector2(1428, 1145)
 
 [node name="PlayerSpawn" type="Sprite2D" parent="." unique_id=1938196790]
 texture_filter = 1
