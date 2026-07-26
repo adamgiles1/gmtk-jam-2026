@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dmt40ct4s7u1u" path="res://UserArt/Shoes/LeatherBoots.png" id="12_obiac"]
 [ext_resource type="Texture2D" uid="uid://bngghwgbtjbkc" path="res://UserArt/Weapons/WeaponSmear.png" id="12_yfl60"]
 [ext_resource type="Texture2D" uid="uid://by8l8nprlbqt3" path="res://UserArt/Legs/JeanLegs.png" id="13_lgjni"]
+[ext_resource type="AudioStream" uid="uid://bt6fpagcb1t8" path="res://Audio/Swing.wav" id="14_p13sx"]
 
 [sub_resource type="Animation" id="Animation_katg2"]
 resource_name = "Attack"
@@ -437,6 +438,18 @@ tracks/34/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [3, 1]
+}
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("SwingAudio:playing")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(0.2228),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_gn32i"]
@@ -1713,6 +1726,18 @@ tracks/34/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("SwingAudio:playing")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_07l50"]
 resource_name = "Walk"
@@ -2267,3 +2292,6 @@ frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1050921162]
 libraries/ = SubResource("AnimationLibrary_0t28v")
+
+[node name="SwingAudio" type="AudioStreamPlayer2D" parent="." unique_id=1730614413]
+stream = ExtResource("14_p13sx")
