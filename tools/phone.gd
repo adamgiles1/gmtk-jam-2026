@@ -29,6 +29,8 @@ func _ready() -> void:
 	Signals.rat_sword.connect(handle_rat_sword, CONNECT_DEFERRED)
 	Signals.invincible_enemy_found.connect(handle_invincible_enemy_found, CONNECT_DEFERRED)
 	Signals.massacre_found.connect(handle_massacre_found, CONNECT_DEFERRED)
+	
+	Signals.game_patched.connect(handle_game_patch)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_home"):
@@ -37,6 +39,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("get_hint") && hint_cd <= 0:
 		add_message(Globals.game_state.get_hint())
 		hint_cd = 5.0
+		visible = true
+
+func handle_game_patch(patch: Signals.GamePatch) -> void:
+	if patch == Signals.GamePatch.GRASS_AREA:
+		await get_tree().create_timer(5.0).timeout
+		add_message("Ok, we finished the grasslands and hot patched the game. It's to the left")
+		add_message("Make sure there's no issues over there. If you need a hint for what to look at, press H")
+	if patch == Signals.GamePatch.DESERT_AREA:
+		await get_tree().create_timer(5.0).timeout
+		add_message("We've added the desert to the north. Maybe we're going to be ok!")
+		add_message("Don't forget to press H if you need information")
 		
 func take_photo(photo_taken) -> void:
 	$CaptureAudio.play()
