@@ -177,9 +177,13 @@ func enter_get_quest() -> void:
 
 func enter_dog_log() -> void:
 	task_time_left = randf_range(3, 5)
-	var msg = ["Nice doggy", "Why can't I pet the dog?", "Doggo"].pick_random()
+	var msg
+	if Globals.game_state.dog_log_reported:
+		msg = ["Nice loggy", "Why can't I pet the log?", "Loggo"].pick_random()
+	else:
+		msg = ["Nice doggy", "Why can't I pet the dog?", "Doggo"].pick_random()
+		set_photograph_state_for_time(PState.DOGLOG, task_time_left)
 	local_chat_message(msg)
-	set_photograph_state_for_time(PState.DOGLOG, task_time_left)
 
 func enter_raid() -> void:
 	task_time_left = randf_range(5, 10)
@@ -267,7 +271,7 @@ func set_photograph_state_for_time(p_state: PState, time: float) -> void:
 		photograph_state = PState.NONE
 
 func photographed() -> void:
-	if is_streamer:
+	if is_streamer && !Globals.game_state.streamer_found:
 		print("Streamer was photographed")
 		Signals.streamer_photographed.emit()
 		return
@@ -301,4 +305,4 @@ func photographed() -> void:
 func become_streamer() -> void:
 	is_streamer = true
 	art.apply_streamer_outfit()
-	name = "Streamer"
+	$NameLabel.text = "Vessel_Radio"
