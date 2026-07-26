@@ -12,7 +12,7 @@ var upcoming_texts = []
 func _ready() -> void:
 	add_message("Hi, thanks for agreeing to be a community manager for the team")
 	add_message("To take a picture, hit spacebar, move the mouse to where you want to take a picture, and left click when you're ready")
-	Signals.photo_taken.connect(func(photo_taken): last_photo = photo_taken, CONNECT_DEFERRED)
+	Signals.photo_taken.connect(take_photo, CONNECT_DEFERRED)
 	Signals.fishing_attempt_found.connect(handle_fishing, CONNECT_DEFERRED)
 	Signals.trashcans_noticed.connect(handle_trashcans_noticed, CONNECT_DEFERRED)
 	Signals.raid_failure.connect(handle_raid_failure, CONNECT_DEFERRED)
@@ -29,6 +29,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_home"):
 		add_message("testing")
+		
+func take_photo(photo_taken) -> void:
+	$CaptureAudio.play()
+	last_photo = photo_taken
 
 func handle_fishing() -> void:
 	await get_tree().create_timer(.1).timeout
@@ -72,6 +76,7 @@ func add_image(img: Image) -> void:
 	upcoming_texts.append(text_msg)
 
 func add_message(msg: String) -> void:
+	$NotifAudio.play()
 	var text_msg = preload("res://tools/TextMessage.tscn").instantiate()
 	messages.add_child(text_msg)
 	text_msg.visible = false

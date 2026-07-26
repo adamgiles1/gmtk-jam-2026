@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://c4fwl0y2sha3d"]
 
 [ext_resource type="Script" uid="uid://cibfar0qq6xek" path="res://tools/phone.gd" id="1_4wlty"]
+[ext_resource type="Texture2D" uid="uid://ch7t4j5ldya2m" path="res://phone.png" id="2_uxyes"]
+[ext_resource type="AudioStream" uid="uid://c5a4rgivtgaxf" path="res://Audio/Notif.wav" id="3_wdaxh"]
+[ext_resource type="AudioStream" uid="uid://ch6rhd4vda4na" path="res://Audio/Capture.wav" id="4_cvbq8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xe0u3"]
 bg_color = Color(0.14044756, 0.14044741, 0.1404475, 1)
@@ -43,6 +46,14 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_uxyes")
 [node name="Phone" type="CanvasLayer" unique_id=199274668]
 script = ExtResource("1_4wlty")
 
+[node name="PhoneImage" type="TextureRect" parent="." unique_id=563471289]
+offset_left = 273.0
+offset_top = -37.0
+offset_right = 1083.0
+offset_bottom = 999.45154
+texture = ExtResource("2_uxyes")
+expand_mode = 1
+
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1551098587]
 anchors_preset = 8
 anchor_left = 0.5
@@ -75,3 +86,9 @@ offset_top = 754.0
 offset_right = 565.0
 offset_bottom = 770.0
 text = "Typing..."
+
+[node name="NotifAudio" type="AudioStreamPlayer2D" parent="." unique_id=54989097]
+stream = ExtResource("3_wdaxh")
+
+[node name="CaptureAudio" type="AudioStreamPlayer2D" parent="." unique_id=1028667374]
+stream = ExtResource("4_cvbq8")
