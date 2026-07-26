@@ -46,6 +46,29 @@ func calculate_state():
 	if completed >= 10:
 		Signals.all_objectives_found.emit()
 
+func get_hint() -> String:
+	if !streamer_found:
+		return "You still need to find Vessel_Radio. They should be around the starting area"
+	if !quest_reward_fixed:
+		return "Can you get me a picture of the new hat? Anyone who beat the quest should be wearing it"
+	if !fishing_enabled:
+		return "I heard some players were at the dock complaining about something, can you check it out?"
+	if !rat_sword_fixed:
+		return "I see a lot of people with strong weapons, can you find where they're getting that?"
+	if !dog_log_reported:
+		return "I'm seeing people complain about not being able to pet a dog. What dog?"
+	if !metal_trashcan_removed:
+		return "I see reports that something unrealistic is in the desert town, can you find it?"
+	if !massacre_solved:
+		return "Someone is somehow attacking other players in the starting zone. They must be wearing a bugged hat, but I don't know which one. Photograph it please"
+	if !desert_enemy_fixed:
+		return "Players are reporting an enemy in the desert isn't behaving correctly"
+	if !smithing_fixed:
+		return "Players are mining and smelting WAY faster than we expected, can you look into that?"
+	if !raid_entrance_solved:
+		return "People are complaining about some hole in the ground in the desert"
+	return "You fixed everything, I don't think there's anything left to investigate"
+
 func handle_streamer():
 	streamer_found = true
 	calculate_state()

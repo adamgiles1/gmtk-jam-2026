@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://ciw61ovxoepkc" path="res://tools/camera.gd" id="1_54vk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7bi17"]
-size = Vector2(200, 150)
+size = Vector2(256, 192)
 
 [node name="Camera" type="Node2D" unique_id=923093574]
 script = ExtResource("1_54vk1")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1122171340]
-offset_right = 200.0
-offset_bottom = 150.0
+offset_right = 256.0
+offset_bottom = 192.0
 color = Color(0, 0, 0, 0.22745098)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=551307513]
@@ -18,5 +18,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1979178088]
-position = Vector2(100, 75)
+position = Vector2(128, 96)
 shape = SubResource("RectangleShape2D_7bi17")

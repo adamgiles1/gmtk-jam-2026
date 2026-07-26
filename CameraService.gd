@@ -1,6 +1,6 @@
 extends Node
 
-var photo_size := Vector2i(200, 150)
+var photo_size := Vector2i(256, 192)
 
 func take_photo(position: Vector2i) -> void:
 	print("taking photo at position: ", position)

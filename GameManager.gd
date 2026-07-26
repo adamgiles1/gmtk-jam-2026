@@ -22,7 +22,7 @@ var player_spawn_spot := Vector2i(54, 14) * 32
 
 var time_till_next_player: float = 2.5 #* 999999
 var users_spawned: int = 0
-var max_players: int = 75
+var max_players: int = 40
 var active_users: int = 0 :
 	set(val):
 		active_users = val
@@ -54,7 +54,7 @@ func _process(delta: float) -> void:
 	time_till_next_player -= delta
 	if time_till_next_player <= 0 && max_players > users_spawned:
 		spawn_player(false)
-		time_till_next_player = randf_range(.5, .5)
+		time_till_next_player = randf_range(5, 20) #* .1
 	
 	if Input.is_action_just_pressed("open_camera"):
 		add_child(preload("res://tools/camera.tscn").instantiate())
@@ -129,7 +129,7 @@ func get_task_spot(task: Task.Type, start: Vector2i) -> Vector2i:
 		Task.Type.MINING:
 			return get_random_mining_spot()
 		Task.Type.SMITHING:
-			return Vector2i(39, 3) if Globals.game_state.smithing_fixed else Vector2i(39, -3)
+			return Vector2i(randi_range(36, 42), 3) if Globals.game_state.smithing_fixed else Vector2i(39, -3)
 		Task.Type.BE_STREAMER:
 			return Vector2i(randi_range(45, 64), randi_range(15, 34))
 		Task.Type.CRAB:
